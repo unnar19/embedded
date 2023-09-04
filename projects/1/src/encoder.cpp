@@ -1,6 +1,6 @@
 #include <encoder.h>
 
-Encoder::Encoder(int pin1, int pin2) : input_C1(pin1) , input_C2(pin2) { }
+Encoder::Encoder(int pin1, int pin2) : input_C1(pin1), input_C2(pin2) { }
 
 void Encoder::init() {
     input_C1.init();

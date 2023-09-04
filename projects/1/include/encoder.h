@@ -1,7 +1,12 @@
 #include <digital_in.h>
 
-class Encoder
-{
+class Encoder {
+
+    public:
+        Encoder(int pin1, int pin2);
+        void init();
+        int position();
+
     private:
         Digital_in input_C1;
         Digital_in input_C2;
@@ -11,12 +16,5 @@ class Encoder
 
         bool old_value = 0;
         int pos_counter = 0;
-
-    public:
-        Encoder(int pin1, int pin2);
-        void init();
-        int position();
-
-
 
 };
