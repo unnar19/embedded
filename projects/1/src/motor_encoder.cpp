@@ -1,5 +1,5 @@
-#include <Arduino.h>
 #include <avr/io.h>
+#include <avr/interrupt.h>
 #include <motor_encoder.h>
 
 // ISR (INT0_vect);

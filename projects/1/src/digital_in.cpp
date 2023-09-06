@@ -1,4 +1,3 @@
-#include <Arduino.h>
 #include <avr/io.h>
 #include <digital_in.h>
 

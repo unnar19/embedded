@@ -1,6 +1,5 @@
-#include <Arduino.h>
 #include <avr/io.h>
-#include <digital_in.cpp>
+#include <digital_in.h>
 
 class Motor_Encoder {
     private:
