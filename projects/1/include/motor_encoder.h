@@ -9,9 +9,7 @@ class Motor_Encoder {
 
     bool value_C1;
     bool value_C2;
-    bool old_value;
-    int pos_counter1;
-    int pos_counter2;
+    int pos_counter;
          
     public:
     Motor_Encoder(int pin_1, int pin_2);

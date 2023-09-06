@@ -16,28 +16,23 @@ void Motor_Encoder::init(){
 }
 
 int Motor_Encoder::position(){
-    value_C1 = input_C1.is_lo();
 
     if (input_C1.is_hi()) {
-        pos_counter1 = 1;
+        if(input_C2.is_lo()){
+            pos_counter += 1;
+        }
+        else{
+            pos_counter -= 1;
+        }
     } 
     else {
-        pos_counter1 = 0;
+        if(input_C2.is_hi()){
+            pos_counter += 1;
+        }
+        else{
+            pos_counter -= 1;
+        }
     }
-
-    if (input_C2.is_hi()) {
-        pos_counter2 = 1;
-    } 
-    else {
-        pos_counter2 = 0;
-    }
-
-    old_value = value_C1;
-
     return pos_counter;
 }
 
-// put function definitions here:
-// ISR (INT0_vect) {
-//   Motor_Encoder position();
-// }
