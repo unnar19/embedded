@@ -1,11 +1,15 @@
-class Digital_in {
+
+#include <Arduino.h>
+#include <avr/io.h>
+
+class Digital_in{
+    public:
+    Digital_in(int PIN_NR);
+    void init();
+    bool is_hi();
+    bool is_lo();
 
     private:
-        int PDX;
-
-    public:
-        Digital_in(int pin);
-        void init();
-        bool is_hi();
-        bool is_lo();
+    uint8_t pinMask;
+    
 };
