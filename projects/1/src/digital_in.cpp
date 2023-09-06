@@ -12,11 +12,9 @@ void Digital_in::init(){
 }
 
 bool Digital_in::is_hi(){
-    bool isOpen = PIND & pinMask;
-    return !isOpen;
+    return PIND & pinMask;
 }
 
 bool Digital_in::is_lo(){
-    bool isOpen = PIND & pinMask;
-    return isOpen;
+    return !is_hi();
 }
