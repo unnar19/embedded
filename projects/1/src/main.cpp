@@ -1,38 +1,38 @@
 #include <Arduino.h>
 #include <avr/io.h>
 #include <avr/interrupt.h>
+#include <util/delay.h>
 
 #include <motor_encoder.h>
 #include <digital_out.h>
 
-int position;
 
 // ISR (INT0_vect);
+int main() {
+  double rpm = 155;
+  double rps = rpm/60.0;
+  double ratio = 100;
+  double ppr = 14;
 
-int main(){
   Serial.begin(115200);
-  double PPS_encoder = ((155/100)*1400)/60; // Pulses per sec
-  double sleep_time_ms = (1/PPS_encoder)/1000;
+  double PPS_encoder = rps*ppr*ratio; // Pulses per sec
+  double sleep_time_us = 1000000.0/PPS_encoder;
+
   Motor_Encoder enc(3, 4); // D3 and D4
+  Digital_out led(5); // Onboard led
+
   enc.init();
-  Digital_out led(5);
   led.init();
-  while(1){
-    unsigned long start_time = millis();
 
-    while(millis() - start_time > 5000){ 
-      led.set_lo();
-      unsigned long last_run = millis();
-      if (millis() - last_run > sleep_time_ms){
-        last_run = millis();
-        position = enc.position();
+  while(1) {
+    _delay_us(sleep_time_us);
 
-      }
-      Serial.print("Current position count: ");
-      Serial.print(position);
-    }
-    _delay_ms(1000);
+    led.set_lo();
+    //enc.position();               // Part 1
+    Serial.println(enc.position()); // Part 2
+    //_delay_us(sleep_time_us);
     led.set_hi();
+
   }
 
   return 0;

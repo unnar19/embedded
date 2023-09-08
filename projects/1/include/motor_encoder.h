@@ -8,7 +8,14 @@ class Motor_Encoder {
 
     bool value_C1;
     bool value_C2;
-    int pos_counter;
+
+    bool prev_C1;
+    bool prev_C2;
+
+    bool current_C1;
+    bool current_C2;
+
+    int pos_counter = 0;
          
     public:
     Motor_Encoder(int pin_1, int pin_2);
