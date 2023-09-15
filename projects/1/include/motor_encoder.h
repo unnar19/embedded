@@ -14,12 +14,16 @@ class Motor_Encoder {
 
     bool current_C1;
     bool current_C2;
+
+    int start_pos;
+    int now_pos;
          
     public:
     int pos_counter = 0;
     Motor_Encoder(int pin_1, int pin_2);
     void init();
     int position();
+    int velocity();
     
 
 };

@@ -1,6 +1,7 @@
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include <motor_encoder.h>
+#include <util/delay.h>
 
 // ISR (INT0_vect);
 Motor_Encoder::Motor_Encoder(int pin_1, int pin_2): input_C1(pin_1), input_C2(pin_2){   }
@@ -38,5 +39,12 @@ int Motor_Encoder::position(){
     return pos_counter;
 }
 
+
+int Motor_Encoder::velocity() {
+    start_pos = pos_counter;
+    _delay_ms(100);
+    now_pos = pos_counter;
+    return (start_pos - now_pos)*5;
+}
 
 
