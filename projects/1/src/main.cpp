@@ -3,27 +3,24 @@
 #include <avr/interrupt.h>
 #include <motor_encoder.h>
 #include <digital_out.h>
+#include <P_controller.h>
 
   //ISR (INT0_vect);
 
-Motor_Encoder enc(4, 5, 1); // D3 and D4
-Digital_out led(5); // Onboard led
+// Digital_out led(5); // Onboard led
+P_controller motor;
 
 int main() {
-  enc.init();
 
 
   // Digital_out motor(2); // Part 2  // int started = 0; // Part 2
 
   const int max_t = 100;
-  float speed;
-  float y[max_t];
-  float e[max_t];
-  float u[max_t];
-  float Kp = 0.4;
+  double y[max_t];
+  double u[max_t];
 
   Serial.begin(115200); 
-  led.init();
+  // led.init();
 
   // motor.init(); // Part 2
   // int index = 0; // Part 2
@@ -36,16 +33,10 @@ int main() {
   }
 
   int t = 0; // Part 4
-  enc.init_pwm(4);  // Part 4
   while(1) {
     
-    // Part 4
-  // enc.set_pwm(0.99);
-    speed = enc.velocity();
-    y[t] = abs(speed);
-    e[t] = r[t] - y[t];
-    u[t] = Kp * e[t];
-    enc.set_pwm(u[t]/1400.0);
+    y[t]= motor.find_speed();
+    u[t] = motor.update(r[t], y[t]);
 
 
     if (t == (max_t - 1)) {
@@ -88,16 +79,16 @@ int main() {
 }
 
 ISR (INT0_vect) {
-  enc.position();
+  motor.enc.position();
   //led.toggle();
 }
 
 ISR (TIMER1_COMPA_vect) {
-  enc.output_V1.pin.set_hi();
+  motor.enc.output_V1.pin.set_hi();
 }
 
 ISR (TIMER1_COMPB_vect) {
-  enc.output_V1.pin.set_lo();
+  motor.enc.output_V1.pin.set_lo();
 }
 
 // #define PWM_16 (39999u) 		//   20 ms

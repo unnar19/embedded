@@ -1,3 +1,4 @@
+#pragma once
 #include <avr/io.h>
 #include <digital_in.h>
 #include <Analog_out.h>
