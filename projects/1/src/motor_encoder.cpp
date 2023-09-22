@@ -41,10 +41,11 @@ int Motor_Encoder::position(){
 
 
 int Motor_Encoder::velocity() {
+    // Returns pulses per millisecond
     start_pos = pos_counter;
     _delay_ms(10);
     now_pos = pos_counter;
-    return (start_pos - now_pos)*50;
+    return (int)((now_pos - start_pos))*50;
 }
 
 
