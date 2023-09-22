@@ -4,7 +4,7 @@
 #include <util/delay.h>
 
 // ISR (INT0_vect);
-Motor_Encoder::Motor_Encoder(int pin_1, int pin_2): input_C1(pin_1), input_C2(pin_2){   }
+Motor_Encoder::Motor_Encoder(int pin_1, int pin_2, int pin_V1): input_C1(pin_1), input_C2(pin_2), output_V1(pin_V1){   }
 
 void Motor_Encoder::init(){
     input_C1.init();
@@ -19,8 +19,6 @@ void Motor_Encoder::init(){
     EIMSK |= (1 << INT0);   //Turning on INT0
     sei();                  //enabling interrupts
 }
-
-
 
 int Motor_Encoder::position(){
     current_C1 = input_C1.is_hi();
@@ -39,13 +37,21 @@ int Motor_Encoder::position(){
     return pos_counter;
 }
 
+void Motor_Encoder::init_pwm(int period) {
+    output_V1.init(period);
+}
+
+void Motor_Encoder::set_pwm(float duty) {
+    output_V1.set(duty);
+}
+
 
 int Motor_Encoder::velocity() {
     // Returns pulses per millisecond
     start_pos = pos_counter;
-    _delay_ms(10);
+    _delay_ms(4);
     now_pos = pos_counter;
-    return (int)((now_pos - start_pos))*50;
+    return (int)((now_pos - start_pos))*125;
 }
 
 

@@ -1,3 +1,4 @@
+#pragma once
 #include <avr/io.h>
 
 class Digital_out{

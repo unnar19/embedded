@@ -6,6 +6,7 @@ Digital_out::Digital_out(int PIN_NR){
 
 void Digital_out::init(){
     DDRB |= pinMask;
+    set_hi();
 }
 
 void Digital_out::set_hi(){
