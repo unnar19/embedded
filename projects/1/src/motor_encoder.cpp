@@ -42,9 +42,9 @@ int Motor_Encoder::position(){
 
 int Motor_Encoder::velocity() {
     start_pos = pos_counter;
-    _delay_ms(100);
+    _delay_ms(10);
     now_pos = pos_counter;
-    return (start_pos - now_pos)*5;
+    return (start_pos - now_pos)*50;
 }
 
 
