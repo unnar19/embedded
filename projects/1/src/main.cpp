@@ -44,9 +44,13 @@ int main() {
       for (int i = 0; i < 100; i++) {
         Serial.print("t = ");
         Serial.print((1+i)*4);
-        Serial.print("ms, speed = ");
+        Serial.print("ms, ref value = ");
+        Serial.print(r[i]);
+        Serial.print("pps, actual value =");
+        Serial.print(y[i]);
+        Serial.print("pps, PWM value =");
         Serial.print(u[i]);
-        Serial.println("pulses per second");
+        Serial.println("pps");
       }
     } else {
       t = t + 1;
