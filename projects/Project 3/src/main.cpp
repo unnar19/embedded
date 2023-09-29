@@ -12,12 +12,10 @@ P_controller motor;
 
 int main() {
 
-
   // Digital_out motor(2); // Part 2  // int started = 0; // Part 2
 
   const int max_t = 100;
   double y[max_t];
-  double u[max_t];
 
   Serial.begin(115200); 
   // led.init();
@@ -29,17 +27,24 @@ int main() {
 
   float r[max_t];
   for (int i = 0; i < max_t; i++) {
-    r[i] = -((14.0/25)*(i-50)*(i-50)) + 1400;
+    // r[i] = -((14.0/25)*(i-50)*(i-50)) + 1400;
+    if (i < 50) {r[i] = 0;}
+    else {r[i] = 2;}
   }
+  
 
   int t = 0; // Part 4
+  double u[max_t];
+  motor.init();
+
   while(1) {
+    
     
     y[t]= motor.find_speed();
     u[t] = motor.update(r[t], y[t]);
+    // motor.enc.set_pwm(r[t]/1400.0);
 
-
-    if (t == (max_t - 1)) {
+    if (t >= (max_t - 1)) {
       t = 0;
       for (int i = 0; i < 100; i++) {
         Serial.print("t = ");
@@ -52,8 +57,9 @@ int main() {
         Serial.print(u[i]);
         Serial.println("pps");
       }
+      _delay_ms(3000);
     } else {
-      t = t + 1;
+      t++;
     }
     // Part 2
   //   if (!started){

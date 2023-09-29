@@ -3,7 +3,7 @@
 
 class P_controller {
     private:
-        double Kp = 0.4;
+        double Kp = 0.9;
         double e;
         double u;
          
