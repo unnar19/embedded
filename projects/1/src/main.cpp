@@ -29,7 +29,9 @@ int main() {
 
   float r[max_t];
   for (int i = 0; i < max_t; i++) {
-    r[i] = -((14.0/25)*(i-50)*(i-50)) + 1400;
+    //r[i] = -((14.0/25)*(i-50)*(i-50)) + 1400;
+    if (i < 50) {r[i] = 0;}
+    else {r[i] = 1400;}
   }
 
   int t = 0; // Part 4
@@ -41,16 +43,24 @@ int main() {
 
     if (t == (max_t - 1)) {
       t = 0;
+      Serial.println("t,r,y,u");
       for (int i = 0; i < 100; i++) {
-        Serial.print("t = ");
         Serial.print((1+i)*4);
-        Serial.print("ms, ref value = ");
+        Serial.print(",");
         Serial.print(r[i]);
-        Serial.print("pps, actual value =");
+        Serial.print(",");
         Serial.print(y[i]);
-        Serial.print("pps, PWM value =");
-        Serial.print(u[i]);
-        Serial.println("pps");
+        Serial.print(",");
+        Serial.println(u[i]);
+        // Serial.print("t = ");
+        // Serial.print((1+i)*4);
+        // Serial.print("ms, ref value = ");
+        // Serial.print(r[i]);
+        // Serial.print("pps, actual value =");
+        // Serial.print(y[i]);
+        // Serial.print("pps, PWM value =");
+        // Serial.print(u[i]);
+        // Serial.println("pps");
       }
     } else {
       t = t + 1;
